@@ -18,6 +18,9 @@ public class PagerNews extends NewsBass {
         super(activity);
     }
 
+    /**
+     * @return
+     */
     @Override
     View initView() {
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.pager_news, null);

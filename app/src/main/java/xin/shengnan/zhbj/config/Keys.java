@@ -9,7 +9,7 @@ public class Keys {
     public static final String FIRST_IN = "first_in";
 
     //项目服务器地址
-    public static final String IO = "http://192.168.191.2:8080/zhbj/";
+    public static final String IO = "http://192.168.1.4:8080/zhbj/";
     public static final String IO_CATEGORIES = IO + "/categories.json";
 
     //新闻ID

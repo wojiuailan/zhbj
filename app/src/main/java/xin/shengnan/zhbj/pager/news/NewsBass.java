@@ -15,8 +15,8 @@ public abstract class NewsBass {
     private MainActivity mActivity;
 
     public NewsBass(Activity activity) {
-        mRootView = initView();
         mActivity = (MainActivity) activity;
+        mRootView = initView();
     }
 
     abstract View initView();

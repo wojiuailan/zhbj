@@ -1,7 +1,11 @@
 package xin.shengnan.zhbj.pager;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -30,29 +34,35 @@ public class ViewPagerNews extends ViewPagerBase {
     private PagerSpecial mPagerSpecial;
     private ArrayList<View> mViewList;
 
+    private ViewPagerNewsAdapter mVPNewsAdapter;
+
+    private NewsCategories mData;
+
     private static final String PAGER_NEWS = "pager_news";
 
     public ViewPagerNews(Activity activity) {
         super(activity);
     }
 
+    /**
+     *
+     */
     public void initData() {
         setTitleText("新闻");//设置监听
         getIBMenu().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).clickMenu();
+                getActivity().clickMenu();
             }
         });
 
 
-
-        loadStringData();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//            }
-//        });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loadStringData();
+            }
+        }).start();
     }
 
     @Override
@@ -91,21 +101,35 @@ public class ViewPagerNews extends ViewPagerBase {
      */
     private void processData(String result) {
         Gson gsong = new Gson();
-        NewsCategories data = gsong.fromJson(result, NewsCategories.class);
+        mData = gsong.fromJson(result, NewsCategories.class);
 
+
+        handler.sendEmptyMessage(0);
+    }
+
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            initPager();
+        }
+    };
+
+    private void initPager() {
         //为MenuFragment，设置数据
-        getActivity().setMenuData(data.data);
-
+        getActivity().setMenuData(mData.data);
         //初始化内容页面
         mPagerNews = new PagerNews(getActivity());
+        mPagerSpecial = new PagerSpecial(getActivity());
 
         mViewList = new ArrayList<>();
         mViewList.add(mPagerNews.getRootView());
-
-        mVPNews.setAdapter(new ViewPagerNewsAdapter(mViewList));
+        mViewList.add(mPagerSpecial.getRootView());
+        mVPNewsAdapter = new ViewPagerNewsAdapter(mViewList);
+        mVPNews.setAdapter(mVPNewsAdapter);
 
         //初始化默认页
-        openNews(data.data.get(0));
+        openNews(mData.data.get(0));
     }
 
     /**

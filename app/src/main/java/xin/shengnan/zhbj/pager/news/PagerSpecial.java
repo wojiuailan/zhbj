@@ -1,6 +1,7 @@
 package xin.shengnan.zhbj.pager.news;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import xin.shengnan.zhbj.R;
@@ -17,8 +18,8 @@ public class PagerSpecial extends NewsBass {
 
     @Override
     View initView() {
-
-        return View.inflate(getActivity(), R.layout.pager_news, null);
+        View v = View.inflate(getActivity(), R.layout.pager_news, null);
+        return v;
     }
 
     @Override
