@@ -31,11 +31,10 @@ public abstract class FragmentBase extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = initView(inflater);
-        if (container != null) {
-            container.addView(v);
-        }
         return v;
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

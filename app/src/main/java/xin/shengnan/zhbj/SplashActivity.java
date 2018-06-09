@@ -10,6 +10,8 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
+import org.xutils.x;
+
 import xin.shengnan.zhbj.activity.GuideActivity;
 import xin.shengnan.zhbj.activity.MainActivity;
 import xin.shengnan.zhbj.config.Keys;
